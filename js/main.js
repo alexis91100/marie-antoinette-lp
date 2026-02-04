@@ -165,7 +165,7 @@
     var Form = {
         form: null,
         success: null,
-        SERVICE_ID: 'service_lfqtref',
+        SERVICE_ID: 'service_u0x4mu4',
         TEMPLATE_1: 'template_dj9jpxa',  // Livre blanc (envoyé immédiatement)
         TEMPLATE_2: 'template_9rvrli5',  // Email de suivi (envoyé après 20s)
 
