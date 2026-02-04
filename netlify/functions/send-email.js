@@ -1,4 +1,4 @@
-const RESEND_API_KEY = process.env.RESEND_API_KEY;
+const BREVO_API_KEY = process.env.BREVO_API_KEY;
 const PDF_URL = 'https://alexis91100.github.io/marie-antoinette-lp/assets/livre-blanc.pdf';
 
 exports.handler = async (event) => {
@@ -95,35 +95,38 @@ exports.handler = async (event) => {
             `;
         }
 
-        const response = await fetch('https://api.resend.com/emails', {
+        const response = await fetch('https://api.brevo.com/v3/smtp/email', {
             method: 'POST',
             headers: {
-                'Authorization': `Bearer ${RESEND_API_KEY}`,
+                'api-key': BREVO_API_KEY,
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                from: 'Marie Antoinette <onboarding@resend.dev>',
-                to: email,
+                sender: {
+                    name: 'Marie Antoinette',
+                    email: 'alexisaria91100@gmail.com'
+                },
+                to: [{ email: email, name: firstname }],
                 subject: subject,
-                html: htmlContent
+                htmlContent: htmlContent
             })
         });
 
         const data = await response.json();
 
         if (!response.ok) {
-            console.error('Resend error:', data);
+            console.error('Brevo error:', data);
             return {
                 statusCode: response.status,
                 headers,
-                body: JSON.stringify({ error: data.message || 'Erreur Resend' })
+                body: JSON.stringify({ error: data.message || 'Erreur Brevo' })
             };
         }
 
         return {
             statusCode: 200,
             headers,
-            body: JSON.stringify({ success: true, id: data.id })
+            body: JSON.stringify({ success: true, id: data.messageId })
         };
 
     } catch (error) {
