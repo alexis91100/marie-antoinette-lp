@@ -160,27 +160,36 @@
     };
 
     /* --------------------------------------------------------
-       FORM avec EmailJS
+       FORM avec Resend via Netlify Functions
        -------------------------------------------------------- */
     var Form = {
         form: null,
         success: null,
-        SERVICE_ID: 'service_pomynma',
-        TEMPLATE_1: 'template_dj9jpxa',  // Livre blanc (envoyé immédiatement)
-        TEMPLATE_2: 'template_9rvrli5',  // Email de suivi (envoyé après 20s)
+        API_URL: '/.netlify/functions/send-email',
 
         init: function() {
             this.form = document.getElementById('lead-form');
             this.success = document.getElementById('form-success');
 
-            // Initialiser EmailJS
-            if (typeof emailjs !== 'undefined') {
-                emailjs.init('gmOmNx8m8JVZEJUFu');
-            }
-
             if (!this.form) return;
 
             this.form.addEventListener('submit', this.handleSubmit.bind(this));
+        },
+
+        sendEmail: function(data, template) {
+            return fetch(this.API_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    firstname: data.firstname,
+                    lastname: data.lastname,
+                    email: data.email,
+                    company: data.company,
+                    template: template
+                })
+            }).then(function(response) {
+                return response.json();
+            });
         },
 
         handleSubmit: function(e) {
@@ -198,17 +207,12 @@
 
             var self = this;
 
-            // Préparer les paramètres pour EmailJS
-            var templateParams = {
-                to_name: data.firstname,
-                lastname: data.lastname,
-                email: data.email,
-                company: data.company
-            };
-
             // Envoyer le premier email (Livre blanc)
-            emailjs.send(this.SERVICE_ID, this.TEMPLATE_1, templateParams)
-                .then(function() {
+            this.sendEmail(data, 'livre-blanc')
+                .then(function(result) {
+                    if (result.error) {
+                        throw new Error(result.error);
+                    }
                     console.log('Email 1 envoyé avec succès');
 
                     // Afficher le message de succès
@@ -219,9 +223,13 @@
 
                     // Envoyer le deuxième email après 20 secondes
                     setTimeout(function() {
-                        emailjs.send(self.SERVICE_ID, self.TEMPLATE_2, templateParams)
-                            .then(function() {
-                                console.log('Email 2 envoyé avec succès (après 20s)');
+                        self.sendEmail(data, 'suivi')
+                            .then(function(result) {
+                                if (result.error) {
+                                    console.error('Erreur email 2:', result.error);
+                                } else {
+                                    console.log('Email 2 envoyé avec succès (après 20s)');
+                                }
                             })
                             .catch(function(error) {
                                 console.error('Erreur email 2:', error);
