@@ -33,61 +33,63 @@ exports.handler = async (event) => {
 
         if (template === 'livre-blanc') {
             // Email 1: Livre blanc
-            subject = `${firstname}, votre livre blanc Marie Antoinette`;
+            subject = `L'influence et le lifestyle : Votre exemplaire Marie Antoinette`;
             htmlContent = `
                 <div style="font-family: 'Inter', Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 40px 20px;">
-                    <h1 style="font-family: 'Playfair Display', Georgia, serif; font-size: 28px; font-weight: 400; margin-bottom: 24px;">
+                    <p style="font-size: 16px; line-height: 1.8; color: #333; margin-bottom: 20px;">
                         Bonjour ${firstname},
-                    </h1>
-                    <p style="font-size: 16px; line-height: 1.6; color: #333; margin-bottom: 20px;">
-                        Merci pour votre intérêt ! Voici votre livre blanc <strong>"L'influence surpasse la pub"</strong> avec le cas pratique Dyson × Caroline Ambrosini.
                     </p>
-                    <p style="margin: 30px 0;">
-                        <a href="${PDF_URL}" style="display: inline-block; background: #000; color: #fff; padding: 16px 32px; text-decoration: none; font-size: 14px; letter-spacing: 0.5px;">
-                            Télécharger le PDF
-                        </a>
+                    <p style="font-size: 16px; line-height: 1.8; color: #333; margin-bottom: 20px;">
+                        Bienvenue dans l'univers de Marie Antoinette, nous vous remercions de l'intérêt porté à notre vision du marché.
+                    </p>
+                    <p style="font-size: 16px; line-height: 1.8; color: #333; margin-bottom: 20px;">
+                        Vous trouverez le lien d'accès à notre dernier livre blanc consacré au secteur du lifestyle. Ce document synthétise notre expertise et les leviers stratégiques que nous activons pour nos clients afin de garantir leur impact et leur singularité ainsi que l'impact que la communication d'influence a et aura dans le futur.
+                    </p>
+                    <p style="font-size: 16px; line-height: 1.8; color: #333; margin-bottom: 20px;">
+                        Nous espérons que ces perspectives nourriront vos réflexions actuelles.
+                    </p>
+                    <p style="font-size: 16px; line-height: 1.8; color: #333; margin-bottom: 20px;">
+                        <strong>Lien d'accès :</strong> <a href="${PDF_URL}" style="color: #000;">${PDF_URL}</a>
+                    </p>
+                    <p style="font-size: 16px; line-height: 1.8; color: #333; margin-bottom: 20px;">
+                        Bien à vous,
                     </p>
                     <p style="font-size: 14px; line-height: 1.6; color: #666;">
-                        Bonne lecture !<br>
-                        L'équipe Marie Antoinette
-                    </p>
-                    <hr style="border: none; border-top: 1px solid #eee; margin: 40px 0 20px;">
-                    <p style="font-size: 12px; color: #999;">
-                        Marie Antoinette — Agence média d'influence<br>
-                        <a href="https://www.marie-antoinette.fr" style="color: #999;">www.marie-antoinette.fr</a>
+                        L'équipe Marie Antoinette.<br>
+                        <span style="font-size: 12px; color: #999;">Marie Antoinette — Agence de communication Lifestyle & Influence</span>
                     </p>
                 </div>
             `;
         } else {
             // Email 2: Suivi
-            subject = `${firstname}, une question sur le livre blanc ?`;
+            subject = `Votre stratégie d'influence avec Marie Antoinette`;
             htmlContent = `
                 <div style="font-family: 'Inter', Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 40px 20px;">
-                    <h1 style="font-family: 'Playfair Display', Georgia, serif; font-size: 28px; font-weight: 400; margin-bottom: 24px;">
-                        ${firstname},
-                    </h1>
-                    <p style="font-size: 16px; line-height: 1.6; color: #333; margin-bottom: 20px;">
-                        Avez-vous eu le temps de parcourir notre livre blanc sur l'influence marketing ?
+                    <p style="font-size: 16px; line-height: 1.8; color: #333; margin-bottom: 20px;">
+                        Bonjour ${firstname},
                     </p>
-                    <p style="font-size: 16px; line-height: 1.6; color: #333; margin-bottom: 20px;">
-                        Si vous avez des questions ou souhaitez discuter de votre stratégie d'influence, n'hésitez pas à nous contacter.
+                    <p style="font-size: 16px; line-height: 1.8; color: #333; margin-bottom: 20px;">
+                        Nous espérons que la lecture de notre analyse sectorielle vous a apporté un éclairage pertinent sur les nouveaux enjeux de demain.
                     </p>
-                    <p style="font-size: 16px; line-height: 1.6; color: #333; margin-bottom: 20px;">
-                        Nous serions ravis d'échanger avec vous sur les opportunités pour <strong>${company || 'votre entreprise'}</strong>.
+                    <p style="font-size: 16px; line-height: 1.8; color: #333; margin-bottom: 20px;">
+                        Si les défis et les opportunités détaillés dans ce document font écho à vos réflexions stratégiques et que vous souhaitez désormais activer une communication d'influence forte pour <strong>${company || 'votre entreprise'}</strong>, nous serions ravis d'en discuter avec vous.
                     </p>
-                    <p style="margin: 30px 0;">
-                        <a href="https://www.marie-antoinette.fr" style="display: inline-block; background: #000; color: #fff; padding: 16px 32px; text-decoration: none; font-size: 14px; letter-spacing: 0.5px;">
-                            Découvrir l'agence
-                        </a>
+                    <p style="font-size: 16px; line-height: 1.8; color: #333; margin-bottom: 20px;">
+                        Pour définir ensemble les leviers les plus adaptés à vos ambitions, nous vous proposons un échange selon votre préférence :
+                    </p>
+                    <ul style="font-size: 16px; line-height: 1.8; color: #333; margin-bottom: 20px; padding-left: 20px;">
+                        <li style="margin-bottom: 10px;"><strong>Au Café de l'Agence (Paris 3e)</strong> — Pour un moment de conseil privilégié et humain.</li>
+                        <li><strong>En visioconférence</strong> — Pour un format plus agile de 20 minutes.</li>
+                    </ul>
+                    <p style="font-size: 16px; line-height: 1.8; color: #333; margin-bottom: 20px;">
+                        Quelle option conviendrait le mieux à votre emploi du temps pour la semaine prochaine ?
+                    </p>
+                    <p style="font-size: 16px; line-height: 1.8; color: #333; margin-bottom: 20px;">
+                        Bien à vous,
                     </p>
                     <p style="font-size: 14px; line-height: 1.6; color: #666;">
-                        À très vite,<br>
-                        L'équipe Marie Antoinette
-                    </p>
-                    <hr style="border: none; border-top: 1px solid #eee; margin: 40px 0 20px;">
-                    <p style="font-size: 12px; color: #999;">
-                        Marie Antoinette — Agence média d'influence<br>
-                        <a href="https://www.marie-antoinette.fr" style="color: #999;">www.marie-antoinette.fr</a>
+                        L'équipe Marie Antoinette.<br>
+                        <span style="font-size: 12px; color: #999;">Marie Antoinette — Lifestyle & Influence</span>
                     </p>
                 </div>
             `;
